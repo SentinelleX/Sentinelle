@@ -243,7 +243,7 @@ const macroscope = {
 ```typescript
 // stores/sentinelStore.ts
 
-interface SentinelState {
+interface SentinelleState {
   // Patient data
   currentPatient: PatientContext | null;
   vitals: VitalSign[];

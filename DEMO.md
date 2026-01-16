@@ -57,7 +57,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 >
 > "The tragedy? Most of these deaths are preventable. The difference between life and death often comes down to a single hour."
 >
-> "This is Sentinel."
+> "This is Sentinelle."
 
 **Visual state:**
 - Vitals panel showing normal values (green indicators)
@@ -71,7 +71,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks (quick cut to architecture slide or overlay):**
 
-> "Sentinel is built on four pillars:"
+> "Sentinelle is built on four pillars:"
 >
 > "Yutori orchestrates our autonomous agent workflow."
 > "TinyFish powers clinical reasoning."  
@@ -108,7 +108,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks:**
 
-> "A busy nurse might not catch this pattern for another 20, 30 minutes. But Sentinel sees it immediately."
+> "A busy nurse might not catch this pattern for another 20, 30 minutes. But Sentinelle sees it immediately."
 
 ---
 
@@ -118,7 +118,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks:**
 
-> "And now, watch Sentinel think."
+> "And now, watch Sentinelle think."
 
 **Visual state — Reasoning panel comes alive:**
 
@@ -178,7 +178,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 ```
 
 **Presenter speaks:**
-> "Now here's where it gets interesting. Sentinel doesn't just alert. It acts."
+> "Now here's where it gets interesting. Sentinelle doesn't just alert. It acts."
 
 **Step 7: Actions (appears at 1:58, children appear sequentially)**
 ```
@@ -206,7 +206,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 ```
 
 **Presenter speaks:**
-> "In 4.2 seconds, Sentinel detected sepsis, alerted the team, recommended the sepsis bundle, documented everything, and set an escalation timer."
+> "In 4.2 seconds, Sentinelle detected sepsis, alerted the team, recommended the sepsis bundle, documented everything, and set an escalation timer."
 
 ---
 
@@ -261,9 +261,9 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks:**
 
-> "Sentinel doesn't replace clinicians. It makes sure no early warning ever gets missed."
+> "Sentinelle doesn't replace clinicians. It makes sure no early warning ever gets missed."
 >
-> "270,000 deaths a year. One hour makes the difference. Sentinel buys that hour back."
+> "270,000 deaths a year. One hour makes the difference. Sentinelle buys that hour back."
 >
 > "Questions?"
 
@@ -339,7 +339,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 ### Key Phrases to Hit
 - "Every two minutes, someone dies"
-- "Watch Sentinel think"
+- "Watch Sentinelle think"
 - "It doesn't just alert — it acts"
 - "4.2 seconds"
 - "No black boxes"

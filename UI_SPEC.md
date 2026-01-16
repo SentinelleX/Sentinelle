@@ -2,7 +2,7 @@
 
 ## Design Philosophy
 
-Sentinel's interface must feel **clinical, premium, and trustworthy**. It is a medical-grade tool visualizing life-or-death decisions. Every design choice should reinforce clarity, precision, and calm authority.
+Sentinelle's interface must feel **clinical, premium, and trustworthy**. It is a medical-grade tool visualizing life-or-death decisions. Every design choice should reinforce clarity, precision, and calm authority.
 
 **Core Principles:**
 1. **Clarity over decoration** — Information hierarchy is paramount

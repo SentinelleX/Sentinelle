@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Sentinel is an autonomous clinical intelligence platform that monitors patient vitals in real-time, detects early signs of clinical deterioration (specifically sepsis), and takes immediate autonomous action. The core differentiator is a transparent reasoning interface that visualizes the AI's decision-making process in real-time.
+Sentinelle is an autonomous clinical intelligence platform that monitors patient vitals in real-time, detects early signs of clinical deterioration (specifically sepsis), and takes immediate autonomous action. The core differentiator is a transparent reasoning interface that visualizes the AI's decision-making process in real-time.
 
 ---
 

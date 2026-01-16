@@ -1,5 +1,5 @@
 // =============================================================================
-// SENTINEL — Type Definitions
+// SENTINELLE — Type Definitions
 // =============================================================================
 
 // -----------------------------------------------------------------------------
@@ -236,7 +236,7 @@ export interface Trace {
 // Store
 // -----------------------------------------------------------------------------
 
-export interface SentinelState {
+export interface SentinelleState {
     // Patient
     currentPatient: PatientContext | null;
 
