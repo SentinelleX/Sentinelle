@@ -84,18 +84,24 @@ export interface PatientDemographics {
     age: number;
     sex: 'M' | 'F';
     weight: number;
+    height?: number;
+    bmi?: number;
+    ethnicity?: string;
 }
 
 export interface Diagnosis {
     code: string;
     description: string;
     onset: string;
+    severity?: 'mild' | 'moderate' | 'severe';
 }
 
 export interface Medication {
     name: string;
     dose: string;
     frequency: string;
+    route?: string;
+    startDate?: string;
 }
 
 export interface LabResult {
@@ -108,18 +114,49 @@ export interface LabResult {
         low: number;
         high: number;
     };
+    critical?: boolean;
+}
+
+export interface NursingNote {
+    timestamp: string;
+    author: string;
+    content: string;
+    category: 'assessment' | 'intervention' | 'observation' | 'concern';
+}
+
+export interface CareTeamMember {
+    role: string;
+    name: string;
+    pager?: string;
+    phone?: string;
+    onDuty: boolean;
+}
+
+export interface PriorVisit {
+    date: string;
+    department: string;
+    chiefComplaint: string;
+    disposition: string;
+    relevantFindings?: string;
 }
 
 export interface PatientContext {
     id: string;
+    mrn: string;
     name: string;
     location: string;
+    admissionDate: string;
+    codeStatus: 'Full Code' | 'DNR' | 'DNI' | 'Comfort Care';
     demographics: PatientDemographics;
     diagnoses: Diagnosis[];
     medications: Medication[];
     allergies: string[];
     recentLabs: LabResult[];
     riskFactors: string[];
+    nursingNotes?: NursingNote[];
+    careTeam?: CareTeamMember[];
+    priorVisits?: PriorVisit[];
+    insurance?: string;
 }
 
 // -----------------------------------------------------------------------------
