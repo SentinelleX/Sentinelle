@@ -1,4 +1,4 @@
-# SENTINELLE
+# SENTINEL
 
 **Autonomous Clinical Intelligence That Thinks Out Loud**
 
@@ -12,8 +12,9 @@ An AI-powered patient monitoring system that detects early signs of sepsis, reas
 
 - Node.js 18+
 - npm or yarn
-- Access to sponsor tool APIs (Yutori, TinyFish, Macroscope)
+- API keys: Yutori (web scraping), TinyFish/Mino (form filling), Claude/OpenAI (reasoning)
 - Retool account for dashboard development
+- Macroscope GitHub App installed (for code review during dev)
 
 ### Installation
 
@@ -35,7 +36,8 @@ sentinel/
 │   ├── ARCHITECTURE.md     # Technical architecture
 │   ├── UI_SPEC.md          # UI/UX specifications
 │   ├── COMPONENTS.md       # Component specifications
-│   └── DEMO.md             # Demo script and presentation guide
+│   ├── DEMO.md             # Demo script and presentation guide
+│   └── TOOL_SETUP.md       # Sponsor tool setup guide (IMPORTANT!)
 │
 ├── src/
 │   ├── components/         # React components
@@ -68,15 +70,15 @@ sentinel/
 4. Wire up vital streaming to UI
 
 ### Phase 3: Agent Integration
-1. Integrate Yutori for workflow orchestration
-2. Integrate TinyFish for reasoning
-3. Implement reasoning engine service
+1. Integrate Claude/OpenAI API for reasoning
+2. Integrate Yutori for web scraping (guidelines, patient data)
+3. Integrate TinyFish/Mino for form filling
 4. Wire reasoning steps to UI
 
 ### Phase 4: Supporting Features
 1. Alert toast system
 2. Patient context panel
-3. Macroscope trace integration
+3. Built-in trace viewer
 4. Retool dashboard
 
 ### Phase 5: Polish
@@ -113,12 +115,14 @@ sentinel/
 
 ## Sponsor Tool Integration
 
-| Tool | Purpose | Integration Point |
-|------|---------|-------------------|
-| **Yutori** | Agent orchestration | Multi-step reasoning workflow |
-| **TinyFish** | LLM reasoning | Clinical assessment and decisions |
-| **Macroscope** | Observability | Tracing, debugging, audit |
-| **Retool** | Dashboards | Command center, admin panel |
+| Tool | What It Does | Integration Point |
+|------|--------------|-------------------|
+| **Yutori** | Web scraping & research | Research API for guidelines; Browsing API for data extraction |
+| **TinyFish (Mino)** | Web automation & form filling | Auto-fill EHR docs; extract patient data from portals |
+| **Macroscope** | Code review (dev tool) | PR reviews, bug detection during development |
+| **Retool** | Dashboard builder | Nurse command center, admin panel |
+
+> **Note:** Our "observability" is the Reasoning Panel we build in React (streaming AI thinking). Macroscope is for code review only. LLM reasoning uses Claude/OpenAI APIs.
 
 ---
 
@@ -178,16 +182,27 @@ npm run demo         # Start in demo mode with controls
 
 ```env
 # .env.local
-VITE_YUTORI_API_KEY=your_key_here
-VITE_TINYFISH_API_KEY=your_key_here
-VITE_MACROSCOPE_API_KEY=your_key_here
+
+# Web scraping & research
+VITE_YUTORI_API_KEY=your_yutori_key
+
+# Web automation & form filling  
+VITE_MINO_API_KEY=your_mino_key
+
+# LLM Reasoning (pick one)
+VITE_ANTHROPIC_API_KEY=your_claude_key
+# OR
+VITE_OPENAI_API_KEY=your_openai_key
+
+# Macroscope: No API key needed (uses GitHub OAuth)
+# Retool: No API key needed (use dashboard builder at retool.com)
 ```
 
 ---
 
 ## Notes for Claude Code
 
-1. **Read the docs folder first** — especially UI_SPEC.md and COMPONENTS.md
+1. **Read the docs folder first** — especially UI_SPEC.md, COMPONENTS.md, and TOOL_SETUP.md
 2. **Start with the ReasoningStep component** — it's the most important
 3. **Use the exact color values** from UI_SPEC.md
 4. **No emojis** — use Lucide icons only
@@ -195,6 +210,8 @@ VITE_MACROSCOPE_API_KEY=your_key_here
 6. **Animations should be subtle** — ease-out, 200ms typical
 7. **The streaming text effect is critical** — character by character with blinking cursor
 8. **Demo scenario data is in** `src/data/scenarios/sepsisDeterioration.ts`
+9. **Yutori = web scraping**, **Mino = form filling**, **Macroscope = dev code review only**
+10. **Build reasoning engine with Claude/OpenAI API** — not with sponsor tools
 
 ---
 

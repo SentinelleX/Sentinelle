@@ -57,7 +57,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 >
 > "The tragedy? Most of these deaths are preventable. The difference between life and death often comes down to a single hour."
 >
-> "This is Sentinelle."
+> "This is Sentinel."
 
 **Visual state:**
 - Vitals panel showing normal values (green indicators)
@@ -71,14 +71,14 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks (quick cut to architecture slide or overlay):**
 
-> "Sentinelle is built on four pillars:"
+> "Sentinelleis built on four sponsor tools:"
 >
-> "Yutori orchestrates our autonomous agent workflow."
-> "TinyFish powers clinical reasoning."  
-> "Macroscope gives us full observability."
-> "And Retool provides the command center."
+> "Yutori scrapes the web for the latest clinical guidelines."
+> "TinyFish automates documentation in the EHR."  
+> "Macroscope keeps our code quality high during development."
+> "And Retool powers the nurse command center."
 >
-> "But enough about how it's built. Let me show you what it does."
+> "Combined with Claude for clinical reasoning. Let me show you what it does."
 
 **Visual state:**
 - Brief architecture diagram (5-10 seconds max)
@@ -108,7 +108,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks:**
 
-> "A busy nurse might not catch this pattern for another 20, 30 minutes. But Sentinelle sees it immediately."
+> "A busy nurse might not catch this pattern for another 20, 30 minutes. But Sentinellesees it immediately."
 
 ---
 
@@ -118,7 +118,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks:**
 
-> "And now, watch Sentinelle think."
+> "And now, watch Sentinellethink."
 
 **Visual state — Reasoning panel comes alive:**
 
@@ -178,7 +178,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 ```
 
 **Presenter speaks:**
-> "Now here's where it gets interesting. Sentinelle doesn't just alert. It acts."
+> "Now here's where it gets interesting. Sentinelledoesn't just alert. It acts."
 
 **Step 7: Actions (appears at 1:58, children appear sequentially)**
 ```
@@ -206,7 +206,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 ```
 
 **Presenter speaks:**
-> "In 4.2 seconds, Sentinelle detected sepsis, alerted the team, recommended the sepsis bundle, documented everything, and set an escalation timer."
+> "In 4.2 seconds, Sentinelledetected sepsis, alerted the team, recommended the sepsis bundle, documented everything, and set an escalation timer."
 
 ---
 
@@ -245,13 +245,13 @@ This document outlines the exact sequence, timing, and visual requirements for t
 **[CLICK ON A REASONING STEP TO EXPAND TRACE]**
 
 **Visual state:**
-- Macroscope trace view expands
+- Built-in trace view expands
 - Shows raw inputs, outputs, timing
 - Full audit trail visible
 
 **Presenter speaks:**
 
-> "Macroscope captures every decision for compliance and debugging. No black boxes."
+> "Our built-in trace viewer captures every decision for compliance and debugging. No black boxes."
 
 ---
 
@@ -261,9 +261,9 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks:**
 
-> "Sentinelle doesn't replace clinicians. It makes sure no early warning ever gets missed."
+> "Sentinelledoesn't replace clinicians. It makes sure no early warning ever gets missed."
 >
-> "270,000 deaths a year. One hour makes the difference. Sentinelle buys that hour back."
+> "270,000 deaths a year. One hour makes the difference. Sentinellebuys that hour back."
 >
 > "Questions?"
 
@@ -339,7 +339,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 ### Key Phrases to Hit
 - "Every two minutes, someone dies"
-- "Watch Sentinelle think"
+- "Watch Sentinellethink"
 - "It doesn't just alert — it acts"
 - "4.2 seconds"
 - "No black boxes"
@@ -384,7 +384,7 @@ interface DemoControls {
 > "The scoring systems we use — qSOFA and NEWS2 — are clinically validated. Thresholds are configurable per institution, and the full observability layer lets clinicians review any decision."
 
 **"Which sponsor tools did you use?"**
-> "All four: Yutori for agent orchestration, TinyFish for clinical reasoning, Macroscope for observability, and Retool for the command center."
+> "All four: Yutori for web scraping clinical guidelines, TinyFish/Mino for automating EHR documentation, Macroscope for code review during development, and Retool for the nurse command center. Clinical reasoning is powered by Claude API."
 
 **"How long did this take to build?"**
 > "We built the core system in [X hours] during the hackathon. The architecture is designed to be extensible for other clinical use cases."

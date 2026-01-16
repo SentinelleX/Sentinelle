@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Sentinelle is an autonomous clinical intelligence platform that monitors patient vitals in real-time, detects early signs of clinical deterioration (specifically sepsis), and takes immediate autonomous action. The core differentiator is a transparent reasoning interface that visualizes the AI's decision-making process in real-time.
+Sentinelleis an autonomous clinical intelligence platform that monitors patient vitals in real-time, detects early signs of clinical deterioration (specifically sepsis), and takes immediate autonomous action. The core differentiator is a transparent reasoning interface that visualizes the AI's decision-making process in real-time.
 
 ---
 
@@ -150,9 +150,11 @@ An autonomous agent system that:
 
 ---
 
-### 6. Observability Layer (Macroscope Integration)
+### 6. Observability Layer (Built-in React UI)
 
-**Description:** Full tracing and debugging for every agent decision.
+**Description:** Full tracing and debugging for every agent decision. This is built into the React frontend as the "Reasoning Panel" — NOT a separate tool.
+
+> **Note:** Macroscope is a CODE REVIEW tool for development (PR summaries, bug detection), NOT runtime observability. Our observability is the Reasoning Panel itself.
 
 **Requirements:**
 - Trace ID for every reasoning chain
@@ -162,8 +164,8 @@ An autonomous agent system that:
 - Exportable audit logs for compliance
 
 **Access Points:**
-- Click any step in reasoning panel to view trace
-- Dedicated "Debug View" for developers
+- Click any step in reasoning panel to view trace details
+- Dedicated "Debug View" toggle for developers
 - Admin panel for historical trace search
 
 ---
@@ -192,10 +194,12 @@ An autonomous agent system that:
 
 | Tool | Integration Point | Purpose |
 |------|------------------|---------|
-| **Yutori** | Agent orchestration | Powers the multi-step reasoning workflow |
-| **TinyFish** | LLM reasoning | Clinical intelligence and decision-making |
-| **Macroscope** | Observability | Tracing, debugging, audit trails |
-| **Retool** | Dashboards | Command center, admin panel, governance |
+| **Yutori** | Web data extraction | Research API for pulling clinical guidelines; Browsing API for extracting patient data from hospital portals; quality web scraping with noise filtering |
+| **TinyFish (Mino)** | Web automation | Form filling for EHR documentation; data extraction from legacy systems; natural language → browser actions |
+| **Macroscope** | Development tool | Code review during development; PR summaries; bug detection (NOT runtime observability) |
+| **Retool** | Dashboards | Command center for nurses; admin panel; governance interface |
+
+> **IMPORTANT:** The "observability" in our demo is the REASONING PANEL we build in React (streaming text showing AI thinking). Macroscope is only for code review during development.
 
 ### Tech Stack
 
