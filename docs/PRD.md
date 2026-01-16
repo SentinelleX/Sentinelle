@@ -224,58 +224,61 @@ An autonomous agent system that:
 
 ## Demo Scenario
 
-### Setup
-- Single patient view (ICU Bed 4)
-- Patient: 67-year-old with recent UTI, immunocompromised
-- Initial vitals: normal range
+### Patient Profile
+- **Name:** Margaret Chen, 67F
+- **Location:** ICU Bed 4, Tower B
+- **Key History:** Breast cancer survivor on chemotherapy, neutropenic (ANC 1.2)
+- **Admission:** UTI, 3 days ago
+- **The Hook:** Prior ER visit 5 days ago — discharged with wrong antibiotic (Bactrim, but she's allergic to sulfa). Allergy wasn't in system.
 
 ### Sequence (Timed for 3-minute demo)
 
-**0:00-0:30 — Baseline**
-- Vitals displaying normally
-- Reasoning panel idle: "Monitoring... No anomalies detected"
+**0:00-0:45 — Hook & Setup**
+- Present sepsis statistics (270,000 deaths/year)
+- Introduce Margaret's backstory (ER mishap)
+- Vitals at baseline: HR 78, BP 128/78, Temp 37.2°C
 
-**0:30-1:00 — Deterioration Begins**
-- HR rises: 78 → 95 → 112
-- BP drops: 120/80 → 100/70 → 88/60
-- Temp rises: 37.0 → 38.2 → 38.9
-- SpO2 drops: 98% → 96% → 94%
+**0:45-1:15 — Deterioration Begins**
+- HR rises: 78 → 98 → 116
+- BP drops: 128/78 → 112/68 → 88/56
+- Temp rises: 37.2 → 38.4 → 39.1°C
+- SpO2 drops: 97% → 95% → 93%
+- RR rises: 16 → 20 → 24
 
-**1:00-2:00 — Agent Activates**
-Reasoning panel comes alive:
-1. "New vitals received" (observe)
-2. "Detecting concerning trends" (think)
-3. "Pulling patient context..." (search)
-   - UTI diagnosis 3 days ago
-   - Immunocompromised status
-   - Lactate trending up
-4. "Calculating risk scores" (calculate)
-   - qSOFA: 2/3
-   - NEWS2: 7 (High)
-5. "Clinical picture suggests early sepsis" (think)
-6. "Initiating autonomous response" (decide)
+**1:15-2:05 — Agent Activates**
+Reasoning panel streams (presenter goes quiet):
+1. **Observe:** "Critical vital signs detected — HR ↑38 from baseline, SBP ↓40..."
+2. **Think:** "Multi-system deterioration, compensatory tachycardia with concurrent hypotension..."
+3. **Search:** Patient context reveals:
+   - HIGH RISK: Neutropenia (ANC 1.2)
+   - Prior ER visit: Wrong antibiotic prescribed
+   - CRITICAL: Procalcitonin 1.8 ng/mL
+   - Nursing notes: Subtle warnings not escalated
+4. **Calculate:** Risk scores:
+   - qSOFA: 3/3 — MAXIMUM RISK
+   - NEWS2: 11 — CRITICAL
+   - SOFA: 4+ — Organ dysfunction confirmed
+5. **Think:** "Early septic shock. Mortality risk 30-40% per hour delay."
+6. **Decide:** "AUTONOMOUS RESPONSE ACTIVATED — 97% confidence"
 
-**2:00-2:30 — Autonomous Actions**
-7. "Alerting care team" (action)
-   - Dr. Chen notified
-   - Charge nurse paged
-8. "Generating recommendations" (action)
-   - Sepsis bundle protocol
-   - Blood cultures x2
-   - Lactate level STAT
-9. "Documenting in EHR" (document)
-   - clinical_note.md created
-10. "Setting escalation timer: 15 minutes" (wait)
+**2:05-2:35 — Autonomous Actions**
+7. Action children appear:
+   - Dr. Sarah Chen paged (555-0147)
+   - Rapid Response Team activated
+   - Bedside nurse gets actionable checklist
+   - Sepsis Hour-1 Bundle generated (Meropenem, adjusted for CKD)
+   - Escalation timer: 5 min physician response
 
-**2:30-2:45 — Response**
-- Alert appears on Retool dashboard
+**2:35-2:50 — Response**
+- Alert toast appears
+- Switch to Retool dashboard
 - Nurse acknowledges
-- Reasoning panel: "Response received. Standing down."
+- Reasoning panel: "Response received. Margaret Chen entered sepsis protocol."
 
-**2:45-3:00 — Wrap**
-- Show Macroscope trace (click to expand)
-- Flash admin configuration panel
-- End state: "Patient entered sepsis protocol in 4.2 seconds"
+**2:50-3:00 — Wrap**
+- Click reasoning step to show trace view
+- End state: "5 actions taken in 4.2 seconds"
+- Closing: "Sentinelle caught what humans missed. Buys back that critical hour."
 
 ---
 

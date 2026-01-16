@@ -1,8 +1,35 @@
-# Sentinelle— Demo Script & Presentation Guide
+# Sentinelle — Demo Script & Presentation Guide
 
 ## Overview
 
 This document outlines the exact sequence, timing, and visual requirements for the 3-minute hackathon demo. The demo is the most important deliverable — it must be polished, rehearsed, and visually impressive.
+
+**Key Story Elements:**
+1. 🎭 **The Tragedy**: Prior ER visit where patient was given wrong antibiotic (sulfa allergy not in system)
+2. 🔍 **The Missed Signs**: Nursing notes show subtle warnings that weren't escalated
+3. 🤖 **The Save**: Sentinelle catches what humans missed and acts autonomously
+4. ⏱️ **The Speed**: 4.2 seconds from detection to full response
+
+---
+
+## Patient Profile
+
+| Field | Value |
+|-------|-------|
+| **Name** | Margaret Chen |
+| **Age/Sex** | 67 / Female |
+| **Location** | ICU Bed 4, Tower B |
+| **MRN** | MRN-2847591 |
+| **Admitted** | 3 days ago for UTI |
+| **Key History** | Breast cancer survivor, on chemotherapy, neutropenic |
+| **The Problem** | Developing septic shock from undertreated UTI |
+
+**Why This Patient is Compelling:**
+- She was in the ER 5 days ago and **discharged with the wrong antibiotic** (Bactrim — she's allergic to sulfa)
+- Allergy wasn't in the system properly
+- She came back 2 days later when oral antibiotics failed
+- Now 3 days into IV Ciprofloxacin but still deteriorating
+- Nursing notes show subtle signs that **weren't escalated**
 
 ---
 
@@ -11,25 +38,27 @@ This document outlines the exact sequence, timing, and visual requirements for t
 ### Screen Layout (Single Monitor)
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  Sentinelle                       ICU Bed 4: John Doe, 67M        [LIVE]    │
+│  Sentinelle                   ICU Bed 4: Margaret Chen, 67F       [LIVE]   │
 ├────────────────────────────────────┬────────────────────────────────────────┤
 │                                    │                                        │
 │  VITALS                            │  REASONING                             │
 │  ┌────────┐ ┌────────┐ ┌────────┐ │                                        │
 │  │   HR   │ │   BP   │ │  Temp  │ │  [Reasoning steps will appear here]   │
-│  │   78   │ │ 120/80 │ │  37.0  │ │                                        │
+│  │   78   │ │ 128/78 │ │  37.2  │ │                                        │
 │  └────────┘ └────────┘ └────────┘ │                                        │
 │  ┌────────┐ ┌────────┐            │                                        │
 │  │  SpO2  │ │   RR   │            │                                        │
-│  │   98%  │ │   16   │            │                                        │
+│  │   97%  │ │   16   │            │                                        │
 │  └────────┘ └────────┘            │                                        │
 │                                    │                                        │
 │  [VITALS CHART - 30 min window]   │                                        │
 │                                    │                                        │
 │  PATIENT CONTEXT                   │                                        │
-│  • UTI (3 days ago)               │                                        │
-│  • Immunocompromised              │                                        │
-│  • Lactate: 2.1 (trending up)     │                                        │
+│  • UTI (current admission)         │                                        │
+│  • Breast cancer (remission)       │                                        │
+│  • Neutropenic (ANC 1.2)           │                                        │
+│  • Procalcitonin: 1.8 (CRITICAL)  │                                        │
+│  • Prior ER visit: Wrong antibiotic│                                        │
 │                                    │                                        │
 └────────────────────────────────────┴────────────────────────────────────────┘
 ```
@@ -57,13 +86,13 @@ This document outlines the exact sequence, timing, and visual requirements for t
 >
 > "The tragedy? Most of these deaths are preventable. The difference between life and death often comes down to a single hour."
 >
-> "This is Sentinel."
+> "This is Sentinelle."
 
 **Visual state:**
 - Vitals panel showing normal values (green indicators)
 - Reasoning panel showing: "Monitoring patient vitals..."
 - Subtle pulsing dot to show system is active
-- Patient context visible with relevant history
+- Patient context visible with risk factors
 
 ---
 
@@ -71,14 +100,14 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks (quick cut to architecture slide or overlay):**
 
-> "Sentinelleis built on four sponsor tools:"
+> "Sentinelle is built on four sponsor tools:"
 >
 > "Yutori scrapes the web for the latest clinical guidelines."
 > "TinyFish automates documentation in the EHR."  
 > "Macroscope keeps our code quality high during development."
 > "And Retool powers the nurse command center."
 >
-> "Combined with Claude for clinical reasoning. Let me show you what it does."
+> "Combined with Gemini for clinical reasoning. Let me show you what it does."
 
 **Visual state:**
 - Brief architecture diagram (5-10 seconds max)
@@ -91,122 +120,116 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Presenter speaks (vitals start changing):**
 
-> "Meet John Doe, 67 years old. He came in three days ago with a urinary tract infection. He's immunocompromised from chemotherapy."
+> "Meet Margaret Chen. She's 67, fighting breast cancer, and her immune system is compromised from chemo."
 >
-> "Right now, his vitals look fine. But watch what happens..."
+> "She came to the ER five days ago with a UTI. They gave her Bactrim — but she's allergic to sulfa. That allergy wasn't in the system."
+>
+> "She came back two days later, and now she's been here three days on IV antibiotics. Her vitals look fine... for now."
 
 **[TRIGGER: Start deterioration sequence]**
 
-> "Heart rate climbing... blood pressure dropping... temperature rising..."
+> "But watch what happens over the next 90 seconds..."
 
 **Visual state:**
 - Vital cards animate value changes smoothly
-- Colors transition: green → yellow → orange
+- Colors transition: green → yellow → orange → red
 - Trend arrows appear showing direction
-- Chart lines start trending in concerning directions
-- Values at ~30 second mark: HR 98, BP 105/70, Temp 38.0
+- Chart lines trending in concerning directions
+- At ~40s: HR 98, BP 112/68, Temp 38.1°C
 
 **Presenter speaks:**
 
-> "A busy nurse might not catch this pattern for another 20, 30 minutes. But Sentinellesees it immediately."
+> "See that? The nursing notes from 2 AM mentioned a low-grade fever. It wasn't escalated — hospital protocol says don't call for temps under 38. But Sentinelle sees the whole pattern."
 
 ---
 
 ### ACT 4: THE AGENT AWAKENS (1:15 - 2:15)
 
-**[TRIGGER: Agent activation - vitals cross threshold]**
+**[TRIGGER: Agent activation - vitals cross critical thresholds]**
 
 **Presenter speaks:**
 
-> "And now, watch Sentinellethink."
+> "And now... watch Sentinelle think."
+
+**(Then STAY QUIET — let judges read the streaming text)**
 
 **Visual state — Reasoning panel comes alive:**
 
 **Step 1: Observe (appears at 1:18)**
 ```
-[Activity icon] New vitals received
-               HR: 112 bpm, BP: 88/60 mmHg, Temp: 38.9°C
+[Activity icon] Critical vital signs detected
+               HR: 116 bpm (↑38 from baseline), BP: 88/56 mmHg (↓40),
+               Temp: 39.1°C, SpO2: 93%, RR: 24/min
 ```
 
-**Step 2: Think (appears at 1:22)**
+**Step 2: Think (appears at 1:24)**
 ```
-[Brain icon] Analyzing vital sign patterns
-             Detecting concerning trends: tachycardia,
-             hypotension, fever, tachypnea...
-```
-
-**Presenter speaks:**
-> "First, it recognizes the pattern..."
-
-**Step 3: Search (appears at 1:28)**
-```
-[Search icon] Pulling patient context
-              └─ [Check] UTI diagnosis 3 days ago
-              └─ [Check] Immunocompromised status  
-              └─ [Check] Lactate trending up
+[Brain icon] Pattern analysis initiated
+             Multi-system deterioration: compensatory tachycardia with
+             concurrent hypotension suggests early distributive shock.
+             Fever trajectory indicates acute inflammatory response.
 ```
 
-**Presenter speaks:**
-> "Then it pulls everything relevant about this patient..."
-
-**Step 4: Calculate (appears at 1:38)**
+**Step 3: Search (appears at 1:32)**
 ```
-[Calculator icon] Computing risk scores
-                  └─ [Check] qSOFA Score: 2/3
-                  └─ [Check] NEWS2 Score: 7 (High)
-```
-
-**Presenter speaks:**
-> "Calculates validated clinical risk scores..."
-
-**Step 5: Think (appears at 1:45)**
-```
-[Brain icon] Clinical assessment
-             Pattern consistent with early sepsis: known
-             infection source, systemic inflammatory
-             response, organ dysfunction indicators.
+[Search icon] Retrieving comprehensive patient context
+              └─ [Check] HIGH RISK: Immunocompromised (neutropenia, ANC 1.2)
+              └─ [Check] Prior ER visit: Discharged with wrong antibiotic
+              └─ [Check] CRITICAL: Procalcitonin 1.8 (normal <0.1)
+              └─ [Check] Nursing notes: Subtle warnings not escalated
+              └─ [Check] CKD Stage 3, diabetes, indwelling catheter
 ```
 
-**Presenter speaks:**
-> "And reaches a clinical conclusion — this looks like early sepsis."
-
-**Step 6: Decide (appears at 1:52)**
+**Step 4: Calculate (appears at 1:42)**
 ```
-[GitBranch icon] Initiating autonomous response
-                 High confidence. Triggering immediate
-                 care team alert and protocol.
+[Calculator icon] Computing clinical risk scores
+                  └─ [Check] qSOFA Score: 3/3 — MAXIMUM RISK
+                  └─ [Check] NEWS2 Score: 11 — CRITICAL
+                  └─ [Check] SOFA Score: 4+ — Organ dysfunction confirmed
 ```
 
-**Presenter speaks:**
-> "Now here's where it gets interesting. Sentinelledoesn't just alert. It acts."
-
-**Step 7: Actions (appears at 1:58, children appear sequentially)**
+**Step 5: Think (appears at 1:50)**
 ```
-[Zap icon] Executing response actions
-           └─ [Bell] Alerting care team
-              Dr. Chen notified. Charge nurse paged.
-           └─ [FileText] Generating recommendations
-              Sepsis bundle: Blood cultures, Lactate STAT...
-           └─ [FileText] Documenting in EHR
-              Clinical note created
-           └─ [Clock] Setting escalation timer
-              15-minute countdown started
+[Brain icon] Clinical synthesis
+             DIAGNOSIS: Early septic shock secondary to UTI in
+             immunocompromised host. Mortality risk without
+             intervention: 30-40% per hour delay.
+```
+
+**Step 6: Decide (appears at 1:56)**
+```
+[GitBranch icon] AUTONOMOUS RESPONSE ACTIVATED
+                 Confidence: 97%. Initiating Sepsis Hour-1 Bundle.
+                 This is a time-critical emergency.
+```
+
+**Step 7: Actions (appears at 2:00, children appear sequentially)**
+```
+[Zap icon] Executing parallel emergency response
+           └─ [Bell] PRIORITY 1: Dr. Sarah Chen paged (555-0147)
+                     Rapid Response Team activated
+           └─ [Bell] Bedside alert to RN Patricia Williams
+                     Actionable checklist: Blood cultures, fluid bolus ready
+           └─ [FileText] Sepsis Hour-1 Bundle generated
+                     Meropenem 1g IV (adjusted for CKD, penicillin allergy noted)
+           └─ [Clock] Escalation armed: 5 min physician, 10 min action
+                     ICU bed reservation initiated
 ```
 
 **[ALERT TOAST APPEARS - top right, slides in]**
 ```
-┌─────────────────────────────────────────────┐
-│ [AlertTriangle] SEPSIS RISK DETECTED        │
-│                                             │
-│ Patient: John Doe (ICU Bed 4)              │
-│ qSOFA: 2/3  •  NEWS2: 7                    │
-│                                             │
-│ [Acknowledge]                    12:34 PM   │
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────┐
+│ [AlertTriangle] SEPTIC SHOCK — IMMEDIATE RESPONSE   │
+│                                                     │
+│ Patient: Margaret Chen (ICU Bed 4)                  │
+│ qSOFA: 3/3  •  NEWS2: 11  •  Confidence: 97%       │
+│                                                     │
+│ [Acknowledge]                           12:34 PM    │
+└─────────────────────────────────────────────────────┘
 ```
 
 **Presenter speaks:**
-> "In 4.2 seconds, Sentinelledetected sepsis, alerted the team, recommended the sepsis bundle, documented everything, and set an escalation timer."
+> "In 4.2 seconds, Sentinelle detected septic shock, found the ER mishap in her history, alerted the entire care team, ordered the right antibiotic — paged Dr. Chen, and started the sepsis protocol."
 
 ---
 
@@ -219,20 +242,21 @@ This document outlines the exact sequence, timing, and visual requirements for t
 **[SWITCH TO RETOOL DASHBOARD - or show split screen]**
 
 **Visual state:**
-- Alert visible in queue, highlighted
-- Patient row shows elevated status
+- Alert visible in queue, highlighted red
+- Patient row shows critical status
 - Acknowledge button prominent
+- Care team response timestamps visible
 
 **Presenter speaks:**
 
-> "The charge nurse sees the alert, reviews the AI's reasoning, and acknowledges."
+> "Charge Nurse Martinez sees the alert, reviews the AI's reasoning — including that ER visit five days ago — and acknowledges."
 
 **[CLICK ACKNOWLEDGE]**
 
 **Visual state:**
 - Alert dismissed
-- Reasoning panel updates: "Response received. Patient entered sepsis protocol."
-- Summary appears: "3 actions taken in 4.2 seconds"
+- Reasoning panel updates: "Response received. Margaret Chen entered sepsis protocol."
+- Summary appears: "5 actions taken in 4.2 seconds"
 
 ---
 
@@ -246,32 +270,35 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 **Visual state:**
 - Built-in trace view expands
-- Shows raw inputs, outputs, timing
+- Shows: inputs (vitals, labs), reasoning chain, outputs (actions)
+- Timestamps for compliance
 - Full audit trail visible
 
 **Presenter speaks:**
 
-> "Our built-in trace viewer captures every decision for compliance and debugging. No black boxes."
+> "Our built-in trace viewer captures every decision. No black boxes. Every step is explainable."
 
 ---
 
 ### ACT 7: THE CLOSE (2:45 - 3:00)
 
-**[RETURN TO MAIN VIEW - now showing stable/acknowledged state]**
+**[RETURN TO MAIN VIEW - now showing stabilized/acknowledged state]**
 
 **Presenter speaks:**
 
-> "Sentinelledoesn't replace clinicians. It makes sure no early warning ever gets missed."
+> "The nursing notes mentioned Margaret felt 'a little off' at 10 PM. By 2 AM she had a low-grade fever. By 9 AM she was in early septic shock."
 >
-> "270,000 deaths a year. One hour makes the difference. Sentinellebuys that hour back."
+> "Sentinelle caught what humans missed. Not because nurses aren't good at their jobs — they're heroes. But because one person can't see every pattern across every patient."
+>
+> "270,000 deaths a year. Every hour matters. Sentinelle buys that hour back."
 >
 > "Questions?"
 
 **Final visual state:**
 - Reasoning panel showing completed sequence
-- Action summary: "3 actions taken in 4.2 seconds"
-- Vitals still showing (patient now in protocol)
-- Overall feeling: calm, resolved, system worked
+- Action summary: "5 actions taken in 4.2 seconds"
+- Vitals now stable (post-intervention)
+- Overall feeling: calm, resolved, life saved
 
 ---
 
@@ -280,11 +307,11 @@ This document outlines the exact sequence, timing, and visual requirements for t
 ### Animations That Must Work Perfectly
 
 1. **Vital value changes** — Smooth number transitions, not jumps
-2. **Vital card color changes** — Fade between green/yellow/red
+2. **Vital card color changes** — Fade between green/yellow/orange/red
 3. **Reasoning step entry** — Slide in from left with fade
 4. **Text streaming** — Character by character with cursor
 5. **Child step expansion** — Smooth height animation
-6. **Alert toast entry** — Slide from right, not jarring
+6. **Alert toast entry** — Slide from right, urgent but not jarring
 7. **Status badge updates** — Cross-fade between states
 
 ### Timing Precision
@@ -294,17 +321,17 @@ This document outlines the exact sequence, timing, and visual requirements for t
 | Deterioration starts | 0:45 | ±2s |
 | Threshold crossed | 1:15 | ±2s |
 | First reasoning step | 1:18 | ±1s |
-| Actions complete | 2:10 | ±3s |
-| Total reasoning time | 4.2s | Display this exact number |
+| Actions complete | 2:05 | ±3s |
+| **Total reasoning time** | **4.2s** | Display this exact number |
 
 ### Colors at Key Moments
 
-| Moment | HR Color | BP Color | Temp Color |
-|--------|----------|----------|------------|
-| Baseline | Normal (teal) | Normal | Normal |
-| Early deterioration | Warning (gold) | Normal | Normal |
-| Threshold crossed | Critical (red) | Critical | Warning |
-| Post-alert | Critical | Critical | Critical |
+| Moment | HR Color | BP Color | Temp Color | SpO2 Color |
+|--------|----------|----------|------------|------------|
+| Baseline | Normal (teal) | Normal | Normal | Normal |
+| Early deterioration | Warning (gold) | Normal | Warning | Normal |
+| Threshold crossed | Critical (red) | Critical | Critical | Warning |
+| Post-alert | Critical | Critical | Critical | Critical |
 
 ---
 
@@ -312,11 +339,11 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 ### If demo crashes:
 - Have video recording ready as backup
-- Practice smooth transition: "Let me show you a recording of the full sequence..."
+- Smooth transition: "Let me show you a recording of the full sequence..."
 
 ### If timing is off:
 - Have manual triggers for each phase
-- Presenter can control pacing with keyboard shortcuts
+- Presenter controls pacing with keyboard shortcuts
 
 ### If Retool doesn't load:
 - Skip the dashboard section
@@ -325,31 +352,33 @@ This document outlines the exact sequence, timing, and visual requirements for t
 
 ### If network issues:
 - Run entirely locally with mocked API responses
-- All demo data should be local/embedded
+- All demo data is local/embedded — no external calls required for demo
 
 ---
 
 ## Presenter Notes
 
 ### Energy and Pacing
-- Start with gravity (the deaths statistic)
-- Build excitement as the agent activates
-- Let the UI do the talking during the reasoning sequence
-- End with confidence and purpose
+- Start with **gravity** (the deaths statistic)
+- Build **tension** ("But watch what happens...")
+- **Stay quiet** during the reasoning sequence — let judges read
+- End with **purpose and humanity** (nurses are heroes)
 
 ### Key Phrases to Hit
 - "Every two minutes, someone dies"
-- "Watch Sentinellethink"
-- "It doesn't just alert — it acts"
+- "That allergy wasn't in the system"
+- "Watch Sentinelle think" (then GO SILENT)
+- "97% confidence"
 - "4.2 seconds"
-- "No black boxes"
+- "Caught what humans missed"
 - "Buys that hour back"
 
 ### What NOT to Do
-- Don't read the reasoning steps aloud (let judges read)
-- Don't explain implementation details during demo
-- Don't apologize for anything
-- Don't rush the reasoning sequence (it's the money shot)
+- ❌ Don't read the reasoning steps aloud (let judges read)
+- ❌ Don't explain implementation details during demo
+- ❌ Don't apologize for anything
+- ❌ Don't rush the reasoning sequence (it's the money shot)
+- ❌ Don't overshadow the UI with talking
 
 ---
 
@@ -366,7 +395,7 @@ interface DemoControls {
   '3': 'Skip to actions complete',
   'A': 'Trigger alert toast manually',
   'K': 'Acknowledge alert',
-  'M': 'Toggle Macroscope trace view',
+  'T': 'Toggle trace view',
   'F': 'Toggle fullscreen',
 }
 ```
@@ -378,16 +407,19 @@ interface DemoControls {
 ### Likely Questions
 
 **"How does it integrate with real EHRs?"**
-> "For the hackathon, we're using simulated data. Production integration would use HL7 FHIR APIs, which most modern EHR systems support."
+> "For the hackathon, we're using simulated data. Production integration would use HL7 FHIR APIs, which most modern EHR systems support. The sponsor tools — Yutori and TinyFish — would handle the actual data extraction and form filling."
 
 **"What about false positives?"**
-> "The scoring systems we use — qSOFA and NEWS2 — are clinically validated. Thresholds are configurable per institution, and the full observability layer lets clinicians review any decision."
+> "The scoring systems we use — qSOFA, NEWS2, and SOFA — are clinically validated with decades of research. Our confidence threshold is tunable per institution. And the full observability layer means every alert can be reviewed and audited."
 
 **"Which sponsor tools did you use?"**
-> "All four: Yutori for web scraping clinical guidelines, TinyFish/Mino for automating EHR documentation, Macroscope for code review during development, and Retool for the nurse command center. Clinical reasoning is powered by Claude API."
+> "All four: Yutori for web scraping clinical guidelines, TinyFish/Mino for automating EHR documentation, Macroscope for code review during development, and Retool for the nurse command center. Clinical reasoning is powered by Anthropic (actuallyGemini) API."
 
-**"How long did this take to build?"**
-> "We built the core system in [X hours] during the hackathon. The architecture is designed to be extensible for other clinical use cases."
+**"Why did you pick sepsis?"**
+> "Sepsis is the perfect use case for autonomous AI because every minute matters. The mortality rate increases 8% per hour of delayed treatment. An AI that can act in 4 seconds instead of waiting 20-30 minutes for a human to notice the pattern — that's lives saved."
 
 **"Could this work for other conditions?"**
-> "Absolutely. The agent architecture is condition-agnostic. We focused on sepsis because the time-sensitivity makes the autonomy argument compelling, but the same system could detect cardiac events, respiratory failure, or other deterioration patterns."
+> "Absolutely. The architecture is condition-agnostic. The same approach works for cardiac events, respiratory failure, stroke — any time-sensitive deterioration pattern. We focused on sepsis because it's the leading cause of preventable hospital deaths."
+
+**"What happens if the AI is wrong?"**
+> "Every action requires human acknowledgment. We don't give the patient medication autonomously — we prepare everything and page the team. The nurse or physician makes the final call. And the full audit trail means we can review any decision."
