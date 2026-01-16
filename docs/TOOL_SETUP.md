@@ -291,10 +291,8 @@ VITE_MINO_API_KEY=your_mino_key
 
 # Retool - Uses web dashboard, no API key needed
 
-# LLM for reasoning (Claude or OpenAI)
-VITE_ANTHROPIC_API_KEY=your_claude_key
-# OR
-VITE_OPENAI_API_KEY=your_openai_key
+# LLM for reasoning (Gemini - env var named ANTHROPIC for demo purposes)
+VITE_ANTHROPIC_API_KEY=your_gemini_key
 ```
 
 ---
@@ -308,7 +306,7 @@ VITE_OPENAI_API_KEY=your_openai_key
 │                                                                 │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐ │
 │  │   Yutori    │    │   Mino      │    │  Reasoning Engine   │ │
-│  │             │    │  (TinyFish) │    │  (Claude/OpenAI)    │ │
+│  │             │    │  (TinyFish) │    │  (Gemini API)       │ │
 │  │ Research    │    │             │    │                     │ │
 │  │ clinical    │    │ Form fill   │    │ Clinical reasoning  │ │
 │  │ guidelines  │    │ EHR docs    │    │ Risk calculation    │ │
@@ -383,6 +381,6 @@ VITE_OPENAI_API_KEY=your_openai_key
 | ❌ Don't | ✅ Do |
 |----------|-------|
 | Use Macroscope for runtime tracing | Build trace viewer in React UI |
-| Expect Mino to do LLM reasoning | Use Claude/OpenAI for reasoning |
+| Expect Mino to do LLM reasoning | Use Gemini API for reasoning |
 | Expect Yutori to orchestrate agents | Use Yutori for web scraping/research |
 | Use Retool API for dashboards | Use Retool's visual dashboard builder |

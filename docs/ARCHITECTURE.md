@@ -227,12 +227,15 @@ async function extractLabResults(labSystemUrl: string, patientId: string): Promi
 }
 ```
 
-#### Reasoning Engine (Claude/OpenAI — NOT a sponsor tool)
+#### Reasoning Engine (Gemini API — NOT a sponsor tool)
 
-The clinical reasoning is powered by LLM APIs (Claude or OpenAI), not by the sponsor tools:
+The clinical reasoning is powered by Google's Gemini API, not by the sponsor tools:
 
 ```typescript
 // services/reasoningEngine.ts
+import { GoogleGenAI } from '@google/genai';
+
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY });
 
 interface ReasoningRequest {
   vitals: VitalSign;
@@ -251,16 +254,16 @@ interface ReasoningResponse {
 
 // This is where the actual clinical reasoning happens
 async function analyzePatient(request: ReasoningRequest): Promise<ReasoningResponse> {
-  // Call Claude API for reasoning
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 2000,
-    messages: [{
-      role: 'user',
-      content: buildClinicalPrompt(request)
-    }],
-    stream: true  // Stream for real-time reasoning panel
+  // Stream for real-time reasoning panel
+  const response = await ai.models.generateContentStream({
+    model: 'gemini-3-flash-preview',
+    contents: buildClinicalPrompt(request),
   });
+
+  // Process streaming chunks for UI
+  for await (const chunk of response) {
+    emitReasoningStep(chunk.text);  // Send to reasoning panel
+  }
   
   return parseReasoningResponse(response);
 }

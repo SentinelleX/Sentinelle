@@ -12,7 +12,7 @@ An AI-powered patient monitoring system that detects early signs of sepsis, reas
 
 - Node.js 18+
 - npm or yarn
-- API keys: Yutori (web scraping), TinyFish/Mino (form filling), Claude/OpenAI (reasoning)
+- API keys: Yutori (web scraping), TinyFish/Mino (form filling), Gemini (reasoning)
 - Retool account for dashboard development
 - Macroscope GitHub App installed (for code review during dev)
 
@@ -70,7 +70,7 @@ sentinel/
 4. Wire up vital streaming to UI
 
 ### Phase 3: Agent Integration
-1. Integrate Claude/OpenAI API for reasoning
+1. Integrate Gemini API for reasoning (uses `@google/genai` SDK)
 2. Integrate Yutori for web scraping (guidelines, patient data)
 3. Integrate TinyFish/Mino for form filling
 4. Wire reasoning steps to UI
@@ -122,7 +122,7 @@ sentinel/
 | **Macroscope** | Code review (dev tool) | PR reviews, bug detection during development |
 | **Retool** | Dashboard builder | Nurse command center, admin panel |
 
-> **Note:** Our "observability" is the Reasoning Panel we build in React (streaming AI thinking). Macroscope is for code review only. LLM reasoning uses Claude/OpenAI APIs.
+> **Note:** Our "observability" is the Reasoning Panel we build in React (streaming AI thinking). Macroscope is for code review only. LLM reasoning uses Gemini API.
 
 ---
 
@@ -190,7 +190,7 @@ VITE_YUTORI_API_KEY=your_yutori_key
 VITE_MINO_API_KEY=your_mino_key
 
 # LLM Reasoning (pick one)
-VITE_ANTHROPIC_API_KEY=your_claude_key
+VITE_ANTHROPIC_API_KEY=your_gemini_key  # Named ANTHROPIC for demo, actually Gemini
 # OR
 VITE_OPENAI_API_KEY=your_openai_key
 
@@ -211,7 +211,7 @@ VITE_OPENAI_API_KEY=your_openai_key
 7. **The streaming text effect is critical** — character by character with blinking cursor
 8. **Demo scenario data is in** `src/data/scenarios/sepsisDeterioration.ts`
 9. **Yutori = web scraping**, **Mino = form filling**, **Macroscope = dev code review only**
-10. **Build reasoning engine with Claude/OpenAI API** — not with sponsor tools
+10. **Build reasoning engine with Gemini API** (`@google/genai` SDK) — not with sponsor tools
 
 ---
 

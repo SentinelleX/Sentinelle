@@ -1,4 +1,4 @@
-import { DemoScenario, ReasoningStep } from '../types';
+import { DemoScenario, ReasoningStep } from '../../types';
 
 /**
  * Sepsis Deterioration Demo Scenario
