@@ -1,4 +1,4 @@
-# SENTINEL — Product Requirements Document
+# Sentinelle— Product Requirements Document
 
 ## Executive Summary
 

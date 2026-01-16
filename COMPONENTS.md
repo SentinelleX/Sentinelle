@@ -1,4 +1,4 @@
-# SENTINEL — Component Specifications
+# Sentinelle— Component Specifications
 
 ## Overview
 
@@ -423,7 +423,7 @@ interface ReasoningPanelProps {
  * IMPLEMENTATION REQUIREMENTS:
  * 
  * 1. Header:
- *    - Title: "SENTINEL REASONING"
+ *    - Title: "SentinelleREASONING"
  *    - Status badge: "Monitoring" | "Active" | "Complete"
  *    - Trace link (if traceId): click to open Macroscope
  * 

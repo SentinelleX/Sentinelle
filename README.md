@@ -1,4 +1,4 @@
-# SENTINEL
+# SENTINELLE
 
 **Autonomous Clinical Intelligence That Thinks Out Loud**
 

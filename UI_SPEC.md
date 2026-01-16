@@ -1,4 +1,4 @@
-# SENTINEL — UI/UX Specification
+# Sentinelle— UI/UX Specification
 
 ## Design Philosophy
 
@@ -398,7 +398,7 @@ const chartConfig = {
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │  HEADER (56px)                                                              │
-│  [Logo]  SENTINEL               ICU Bed 4: John Doe          [Status]      │
+│  [Logo]  Sentinelle              ICU Bed 4: John Doe          [Status]      │
 ├───────────────────────────────────┬─────────────────────────────────────────┤
 │                                   │                                         │
 │  VITALS PANEL (400px)             │  REASONING PANEL (flex: 1)              │

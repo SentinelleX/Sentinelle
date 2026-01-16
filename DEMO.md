@@ -1,4 +1,4 @@
-# SENTINEL — Demo Script & Presentation Guide
+# Sentinelle— Demo Script & Presentation Guide
 
 ## Overview
 
@@ -11,7 +11,7 @@ This document outlines the exact sequence, timing, and visual requirements for t
 ### Screen Layout (Single Monitor)
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  SENTINEL                        ICU Bed 4: John Doe, 67M        [LIVE]    │
+│  Sentinelle                       ICU Bed 4: John Doe, 67M        [LIVE]    │
 ├────────────────────────────────────┬────────────────────────────────────────┤
 │                                    │                                        │
 │  VITALS                            │  REASONING                             │
