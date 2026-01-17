@@ -46,13 +46,6 @@ export function ReasoningStep({
       className="relative"
       style={{ paddingLeft: depth * 24 }}
     >
-      {/* Connecting line for nested steps */}
-      {depth > 0 && (
-        <div
-          className="absolute left-0 top-0 bottom-0 w-px bg-border-subtle"
-          style={{ left: (depth - 1) * 24 + 10 }}
-        />
-      )}
 
       <div
         onClick={handleClick}

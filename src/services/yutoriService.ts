@@ -71,8 +71,11 @@ export async function createBrowsingTask(instruction: string): Promise<{ taskId:
   const apiKey = import.meta.env.VITE_YUTORI_API_KEY
   if (!apiKey) return null
 
+  const url = `${YUTORI_API_URL}/browsing/tasks`
+  console.log('[Yutori] POST', url)
+
   try {
-    const response = await fetch(`${YUTORI_API_URL}/browsing/tasks`, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'X-API-Key': apiKey,
@@ -84,15 +87,19 @@ export async function createBrowsingTask(instruction: string): Promise<{ taskId:
       }),
     })
 
+    console.log('[Yutori] Response status:', response.status)
+
     if (!response.ok) {
-      console.log('Yutori browsing task creation failed:', response.status)
+      const errorText = await response.text()
+      console.log('[Yutori] Error response:', errorText)
       return null
     }
 
     const data = await response.json()
+    console.log('[Yutori] Response data:', data)
     return { taskId: data.task_id || data.id }
   } catch (err) {
-    console.log('Yutori API error:', err)
+    console.log('[Yutori] Fetch error:', err)
     return null
   }
 }
@@ -139,28 +146,34 @@ export async function pollBrowsingTask(taskId: string, maxAttempts: number = 30)
 export async function quickResearch(query: string): Promise<ResearchResult> {
   const apiKey = import.meta.env.VITE_YUTORI_API_KEY
 
+  console.log('[Yutori] quickResearch called with query:', query)
+  console.log('[Yutori] API Key present:', !!apiKey, apiKey ? `(${apiKey.slice(0, 8)}...)` : '')
+
   if (!apiKey) {
-    console.log('No Yutori API key configured')
+    console.log('[Yutori] No API key - returning fallback')
     return SEPSIS_GUIDELINES_FALLBACK
   }
 
   try {
+    console.log('[Yutori] Creating browsing task...')
+
     // Create browsing task to research the query
     const task = await createBrowsingTask(
       `Search Google for "${query}" and summarize the top 3 results. Focus on medical guidelines and clinical recommendations.`
     )
 
     if (!task) {
-      console.log('Failed to create Yutori browsing task')
+      console.log('[Yutori] Failed to create task - returning fallback')
       return SEPSIS_GUIDELINES_FALLBACK
     }
 
-    console.log('Yutori task created:', task.taskId)
+    console.log('[Yutori] Task created successfully:', task.taskId)
 
     // Poll for results
     const result = await pollBrowsingTask(task.taskId, 20)
 
     if (result) {
+      console.log('[Yutori] Got result:', result.slice(0, 100))
       return {
         success: true,
         data: {
@@ -170,9 +183,10 @@ export async function quickResearch(query: string): Promise<ResearchResult> {
       }
     }
 
+    console.log('[Yutori] No result from polling - returning fallback')
     return SEPSIS_GUIDELINES_FALLBACK
   } catch (error) {
-    console.log('Yutori research error:', error)
+    console.log('[Yutori] Error:', error)
     return SEPSIS_GUIDELINES_FALLBACK
   }
 }

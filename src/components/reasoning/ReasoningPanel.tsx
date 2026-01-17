@@ -37,13 +37,11 @@ export function ReasoningPanel() {
 
   return (
     <div className="h-full flex flex-col bg-bg-secondary rounded-xl border border-border-subtle overflow-hidden relative">
-      {/* Scan line effect when active */}
-      {isAgentActive && <div className="scan-line" />}
 
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-border-subtle bg-bg-tertiary/50">
         <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg ${isAgentActive ? 'bg-accent-agent/20 glow-agent' : 'bg-bg-elevated'}`}>
+          <div className={`p-2 rounded-lg ${isAgentActive ? 'bg-accent-agent/20' : 'bg-bg-elevated'}`}>
             <Brain size={20} className={isAgentActive ? 'text-accent-agent' : 'text-text-secondary'} strokeWidth={1.5} />
           </div>
           <div>
