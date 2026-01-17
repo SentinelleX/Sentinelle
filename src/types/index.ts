@@ -229,6 +229,17 @@ export interface DeteriorationPoint {
     };
 }
 
+// Template step without runtime fields (id, status, timestamp)
+export interface ReasoningStepTemplate {
+    type: StepType;
+    title: string;
+    content?: string;
+    children?: ReasoningStepTemplate[];
+    duration?: number;
+    traceId?: string;
+    metadata?: Record<string, unknown>;
+}
+
 export interface DemoScenario {
     id: string;
     name: string;
@@ -236,7 +247,7 @@ export interface DemoScenario {
     patient: PatientContext;
     baseline: VitalSign;
     deterioration: DeteriorationPoint[];
-    reasoningSteps: Omit<ReasoningStep, 'id' | 'status' | 'timestamp'>[];
+    reasoningSteps: ReasoningStepTemplate[];
 }
 
 // -----------------------------------------------------------------------------

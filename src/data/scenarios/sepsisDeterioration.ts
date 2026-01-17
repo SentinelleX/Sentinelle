@@ -1,4 +1,4 @@
-import { DemoScenario, ReasoningStep } from '../../types';
+import { DemoScenario, ReasoningStep, ReasoningStepTemplate } from '../../types';
 
 /**
  * Sepsis Deterioration Demo Scenario
@@ -290,18 +290,15 @@ export const sepsisScenario: DemoScenario = {
     },
 
     // Deterioration curve - time in seconds from demo start
-    // More granular for smoother animation
+    // Compressed to ~18 seconds for demo impact
     deterioration: [
         { time: 0, vitals: { hr: 78, sbp: 128, dbp: 78, temp: 37.2, spo2: 97, rr: 16 } },
-        { time: 10, vitals: { hr: 82, sbp: 126, dbp: 76, temp: 37.3, spo2: 97, rr: 17 } },
-        { time: 20, vitals: { hr: 86, sbp: 122, dbp: 74, temp: 37.5, spo2: 97, rr: 17 } },
-        { time: 30, vitals: { hr: 92, sbp: 118, dbp: 72, temp: 37.8, spo2: 96, rr: 18 } },
-        { time: 40, vitals: { hr: 98, sbp: 112, dbp: 68, temp: 38.1, spo2: 96, rr: 19 } },
-        { time: 50, vitals: { hr: 104, sbp: 105, dbp: 64, temp: 38.4, spo2: 95, rr: 20 } },
-        { time: 60, vitals: { hr: 108, sbp: 98, dbp: 60, temp: 38.7, spo2: 95, rr: 22 } },
-        { time: 70, vitals: { hr: 112, sbp: 92, dbp: 58, temp: 38.9, spo2: 94, rr: 23 } },
-        { time: 80, vitals: { hr: 116, sbp: 88, dbp: 56, temp: 39.1, spo2: 93, rr: 24 } },
-        { time: 90, vitals: { hr: 118, sbp: 84, dbp: 54, temp: 39.2, spo2: 93, rr: 26 } },
+        { time: 3, vitals: { hr: 84, sbp: 124, dbp: 76, temp: 37.4, spo2: 97, rr: 17 } },
+        { time: 6, vitals: { hr: 92, sbp: 118, dbp: 72, temp: 37.8, spo2: 96, rr: 18 } },
+        { time: 9, vitals: { hr: 100, sbp: 110, dbp: 68, temp: 38.2, spo2: 95, rr: 20 } },
+        { time: 12, vitals: { hr: 108, sbp: 100, dbp: 62, temp: 38.6, spo2: 94, rr: 22 } },
+        { time: 15, vitals: { hr: 114, sbp: 92, dbp: 58, temp: 38.9, spo2: 93, rr: 24 } },
+        { time: 18, vitals: { hr: 118, sbp: 86, dbp: 54, temp: 39.2, spo2: 92, rr: 26 } },
     ],
 
     // Reasoning steps template (id, status, timestamp added at runtime)
@@ -427,7 +424,7 @@ export function generateReasoningSteps(
     const generateId = () => `step-${++stepIndex}-${Date.now()}`;
 
     const processStep = (
-        template: Omit<ReasoningStep, 'id' | 'status' | 'timestamp'>,
+        template: ReasoningStepTemplate,
         timestamp: number
     ): ReasoningStep => {
         const step: ReasoningStep = {
@@ -435,6 +432,7 @@ export function generateReasoningSteps(
             id: generateId(),
             status: 'pending',
             timestamp,
+            children: undefined,
         };
 
         if (template.children) {
