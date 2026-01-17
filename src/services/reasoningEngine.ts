@@ -2,6 +2,7 @@ import { ReasoningStep, StepStatus, VitalSign, Alert, PatientContext, StepType }
 import { analyzePatientWithStreaming, sectionToStepType, sectionToTitle } from './geminiService'
 import { quickResearch } from './yutoriService'
 import { generateEHRDocumentation, sendPagerAlert } from './minoService'
+import { calculateClinicalScores, formatScoreDisplay } from '../utils/clinicalScoring'
 
 interface ReasoningEngineConfig {
   onStep: (step: ReasoningStep) => void
@@ -179,10 +180,17 @@ export function createReasoningEngine(config: ReasoningEngineConfig): ReasoningE
         if (!running) return
         await new Promise(r => setTimeout(r, 600)) // Pause between steps
 
-        // CALCULATE
+        // CALCULATE - Use validated clinical scoring algorithms
         const calcStep = createStep('calculate', 'Risk scoring', '')
-        await typeContent(calcStep.id, `qSOFA Score: 2/3 (RR ≥22: +1, SBP ≤100: +1) - High mortality risk. NEWS2 Score: 9 (RR: +3, SpO2: +2, Temp: +2, SBP: +2) - Critical threshold exceeded. SOFA estimated 4+ indicating organ dysfunction.`)
-        geminiAssessment = 'Sepsis with early septic shock. Immediate intervention required.'
+        const scores = calculateClinicalScores(vitals, { gcs: 15, isOnOxygen: false, isAlert: true })
+        
+        await typeContent(calcStep.id, `qSOFA Score: ${formatScoreDisplay(scores.qsofa.score, scores.qsofa.maxScore)} (${scores.qsofa.criteria.respiratoryRate ? 'RR ≥22: +1, ' : ''}${scores.qsofa.criteria.systolicBP ? 'SBP ≤100: +1, ' : ''}${scores.qsofa.criteria.alteredMentation ? 'Altered mentation: +1' : ''}) - ${scores.qsofa.interpretation === 'high_risk' ? 'High mortality risk' : 'Continue monitoring'}. `)
+        await typeContent(calcStep.id, `NEWS2 Score: ${scores.news2.score} - Clinical risk: ${scores.news2.clinicalRisk.replace('_', '-')}. `)
+        await typeContent(calcStep.id, `Overall sepsis likelihood: ${scores.sepsisLikelihood}. Urgency level: ${scores.urgencyLevel}/5.`)
+        
+        geminiAssessment = scores.sepsisLikelihood === 'likely' || scores.sepsisLikelihood === 'probable' 
+          ? 'Sepsis with early septic shock. Immediate intervention required.'
+          : 'Potential sepsis. Close monitoring and workup recommended.'
         completeStep(calcStep.id)
 
         if (!running) return
@@ -236,6 +244,9 @@ export function createReasoningEngine(config: ReasoningEngineConfig): ReasoningE
       // Sub-action 2: Generate EHR documentation
       const docStep = createStep('document', 'Generating EHR documentation', 'Creating clinical note via Mino automation...')
 
+      // Calculate scores for documentation
+      const docScores = calculateClinicalScores(vitals, { gcs: 15, isOnOxygen: false, isAlert: true })
+      
       await generateEHRDocumentation(
         {
           patientId: patient.id,
@@ -249,8 +260,8 @@ export function createReasoningEngine(config: ReasoningEngineConfig): ReasoningE
             spO2: vitals.spO2,
             respiratoryRate: vitals.respiratoryRate,
           },
-          assessment: geminiAssessment || 'Sepsis screening positive. Multi-system deterioration pattern detected.',
-          scores: { qsofa: 2, news2: 8 },
+          assessment: geminiAssessment || `Sepsis likelihood: ${docScores.sepsisLikelihood}. ${docScores.sirs.meetsSIRS ? 'SIRS criteria met.' : ''} Multi-system deterioration pattern detected.`,
+          scores: { qsofa: docScores.qsofa.score, news2: docScores.news2.score },
           recommendations: [
             'Blood cultures x2 before antibiotics',
             'Serum lactate STAT',
@@ -283,16 +294,19 @@ export function createReasoningEngine(config: ReasoningEngineConfig): ReasoningE
       // Complete main action step
       completeStep(actionStep.id)
 
-      // Generate alert
+      // Calculate final scores for alert
+      const finalScores = calculateClinicalScores(vitals, { gcs: 15, isOnOxygen: false, isAlert: true })
+      
+      // Generate alert with calculated scores
       const alert: Alert = {
         id: `alert-${Date.now()}`,
-        severity: 'critical',
-        title: 'SEPSIS RISK DETECTED',
-        message: 'Multi-system deterioration identified. Care team notified. Sepsis bundle initiated.',
+        severity: finalScores.urgencyLevel <= 2 ? 'critical' : finalScores.urgencyLevel <= 3 ? 'warning' : 'info',
+        title: finalScores.sepsisLikelihood === 'likely' ? 'SEPSIS RISK DETECTED' : 'CLINICAL DETERIORATION',
+        message: `${finalScores.sepsisLikelihood === 'likely' ? 'Multi-system deterioration identified' : 'Vital sign abnormalities detected'}. Care team notified. ${finalScores.qsofa.interpretation === 'high_risk' ? 'Sepsis bundle initiated.' : 'Close monitoring recommended.'}`,
         patientId: patient.id,
         patientName: patient.name,
         location: patient.location,
-        scores: { qsofa: 2, news2: 8 },
+        scores: { qsofa: finalScores.qsofa.score, news2: finalScores.news2.score },
         timestamp: Date.now(),
         acknowledged: false,
       }
